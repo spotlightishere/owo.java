@@ -31,6 +31,16 @@ public interface OwOService {
     Call<OwOFile> upload(@Part MultipartBody.Part file);
 
     /**
+     * Upload a file to the {@code /upload/pomf/associated} endpoint
+     *
+     * @param file File to upload
+     * @return {@link Call} of type {@link OwOFile}
+     */
+    @Multipart
+    @POST("upload/pomf/associated")
+    Call<OwOFile> uploadAssociated(@Part MultipartBody.Part file);
+
+    /**
      * Shorten link using the {@code /shorten/polr} endpoint
      *
      * @param url URL to shorten

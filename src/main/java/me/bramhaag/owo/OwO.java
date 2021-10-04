@@ -223,6 +223,22 @@ public class OwO {
     }
 
     /**
+     * Upload a {@code byte[]} with a specified filename and content type, and associate it to the user's account
+     * @param data data to upload
+     * @param fileName name of file
+     * @param contentType content type of data
+     * @return {@link OwOAction} of type {@link OwOFile}
+     *
+     * @throws NullPointerException if {@code data} is null
+     */
+    public OwOAction<OwOFile> uploadAssociated(@NotNull byte[] data, @Nullable String fileName, @Nullable String contentType) {
+        RequestBody filePart = RequestBody.create(MediaType.parse(contentType == null ? DEFAULT_CONTENT_TYPE : contentType), data);
+        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("files[]", fileName, filePart);
+
+        return new OwOAction<>(service.uploadAssociated(uploadFile));
+    }
+
+    /**
      * Shorten a URL
      * @param url URL to be shortened
      * @return {@link OwOAction} of type {@link String}, which can be used with {@link OwOAction#execute(Consumer)} or {@link OwOAction#executeSync()}
